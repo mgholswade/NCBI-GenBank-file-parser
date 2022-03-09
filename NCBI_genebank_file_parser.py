@@ -3,17 +3,27 @@
 from Bio import GenBank
 
 #reading the gene bank file
+# def readfile():
+# 	#for genbank file: ftp://ftp.ncbi.nlm.nih.gov/refseq/H_sapiens/annotation/GRCh37_latest/refseq_identifiers/
+# 	gb_file_name = str(raw_input("Enter your NCBI gene bank file name: "))
+	
+# 	try:
+# 		genbank = open(gb_file_name).read().split('LOCUS  ') #opens gene bank file and splits by '//\n' to create list of each genes
+# 	except:
+# 		print "File not found. Please make sure you have the right file and also include the file extension"
+
+# 	return genbank
+
+
+
 def readfile():
-	#for genbank file: ftp://ftp.ncbi.nlm.nih.gov/refseq/H_sapiens/annotation/GRCh37_latest/refseq_identifiers/
-	gb_file_name = str(raw_input("Enter your NCBI gene bank file name: "))
 	
 	try:
-		genbank = open(gb_file_name).read().split('LOCUS  ') #opens gene bank file and splits by '//\n' to create list of each genes
+		genbank = open('C:\Users\mghol\Documents\Projects\NCBI-GenBank-file-parser\Mattirolomyces_terfezioides.gbk').read().split('LOCUS  ') #opens gene bank file and splits by '//\n' to create list of each genes
 	except:
 		print "File not found. Please make sure you have the right file and also include the file extension"
 
 	return genbank
-
 
 #function to parse the nucleotide reference sequence genebank file
 def ntgenbank():
@@ -27,7 +37,7 @@ def ntgenbank():
 	output = open('result_ntgenbank.csv','w') # opening a file to write the ouput
 
 	#writing headings of the output file
-	output.write('Name'+','+'NM'+','+ 'NM_version'+','+ 'Symbol'+','+'CDS_start'+','+ 'CDS_stop'+','+'HGNC'+','+\
+	output.write('Name'+','+ 'Symbol'+','+'CDS_start'+','+ 'CDS_stop'+','+'HGNC'+','+\
 		    'MIM'+','+'EC_number'+','+ 'GeneID' +','+ 'NP'+','+'NP_version'+','+'gene_synonym'+','+'AA_seq'+','+\
 		     'AA_number'+','+'Chromosome'+ ','+'Chromosome_map'+','+ 'NT_seq'+','+'Organism'+'\n')
 	
@@ -44,9 +54,9 @@ def ntgenbank():
 
 		##########################################################################################
 		nt_seq = (record.sequence).strip('\n') #stores nucleotide sequence
-		nm_and_version = (record.version).strip('\n') #contains nm and nm_version
-		nm = (nm_and_version.split('.')[0]).strip('\n')
-		nm_version = (nm_and_version.split('.')[1]).strip('\n')
+		#nm_and_version = (record.version).strip('\n') #contains nm and nm_version
+		#nm = (nm_and_version.split('.')[0]).strip('\n')
+		#nm_version = (nm_and_version.split('.')[1]).strip('\n') 	#FIXME This line is causing an error when used with Matt file
 
 
 		############################################################################################
@@ -101,8 +111,8 @@ def ntgenbank():
 						break
 					else:
 						continue
-			np = cds_dict["protein_id"].split('.')[0]+'"'
-			np_version = '"'+cds_dict["protein_id"].split('.')[1]
+			#np = cds_dict["protein_id"].split('.')[0]+'"'  #FIXME commented out to avoid error
+			#np_version = '"'+cds_dict["protein_id"].split('.')[1] #FIXME commented out to avoid error
 			hgnc=cds_dict["HGNC"]
 			mim=cds_dict["MIM:"]
 			geneid =cds_dict["GeneID"]
@@ -117,9 +127,13 @@ def ntgenbank():
 			if len(geneid) !=0:
 				geneid = '"'+geneid.split(':')[1]
 
-			gvalue = name+','+nm+','+nm_version+','+symbol+','+cds_start+','+cds_stop+',' + hgnc +','+\
-				mim+','+cds_dict["EC_number"]+','+geneid+ ','+np+','+np_version+','+synonym+','+\
-				translation+','+str(num_aa) +','+str(chrm)+','+chrm_map+','+nt_seq+','+organism+'\n'
+			# gvalue = name+','+nm+','+nm_version+','+symbol+','+cds_start+','+cds_stop+',' + hgnc +','+\
+			# 	mim+','+cds_dict["EC_number"]+','+geneid+ ','+np+','+np_version+','+synonym+','+\
+			# 	translation+','+str(num_aa) +','+str(chrm)+','+chrm_map+','+nt_seq+','+organism+'\n'
+
+			gvalue = name+','+symbol+','+cds_start+','+cds_stop+',' + hgnc +','+\
+			mim+','+cds_dict["EC_number"]+','+geneid+ ','+synonym+','+\
+			translation+','+str(num_aa) +','+str(chrm)+','+chrm_map+','+nt_seq+','+organism+'\n'
 			output.write(gvalue)
 	print "Parsing completed"
 	output.close()
