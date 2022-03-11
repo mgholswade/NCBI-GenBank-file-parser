@@ -83,7 +83,7 @@ def ntgenbank():
 		symbol = (gene.qualifiers[0].value).strip('\n')     #symbol or gene
 
 
-                #########################################################################################
+        #########################################################################################
 		cds=''		
 		for c in range(0, len(record.features)):
 			if('CDS' in record.features[c].key):
