@@ -19,7 +19,7 @@ from Bio import GenBank
 def readfile():
 	
 	try:
-		genbank = open('C:\Users\mghol\Documents\Projects\NCBI-GenBank-file-parser\Hericium_erinaceus_0065.gbk').read().split('LOCUS  ') #opens gene bank file and splits by '//\n' to create list of each genes
+		genbank = open('C:\Users\mghol\Documents\Projects\NCBI-GenBank-file-parser\\test_genbank_file.txt').read().split('LOCUS  ') #opens gene bank file and splits by '//\n' to create list of each genes
 	except:
 		print "File not found. Please make sure you have the right file and also include the file extension"
 
@@ -79,9 +79,16 @@ def ntgenbank():
                         
 
 		############################################################################################
-		gene = record.features[1]			#contains all the field of gene
-		symbol = (gene.qualifiers[0].value).strip('\n')     #symbol or gene
+		#FIXME Changed to fill with empty string if there is no gene info to add
+		try:
+			gene = record.features[1]
+		except:
+			gene = ''			#contains all the field of gene
 
+		try:
+			symbol = (gene.qualifiers[0].value).strip('\n')     #symbol or gene
+		except:
+			symbol = ''
 
         #########################################################################################
 		cds=''		
