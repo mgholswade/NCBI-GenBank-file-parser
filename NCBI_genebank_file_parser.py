@@ -19,7 +19,7 @@ from Bio import GenBank
 def readfile():
 	
 	try:
-		genbank = open('C:\Users\mghol\Documents\Projects\NCBI-GenBank-file-parser\\test_genbank_file.txt').read().split('LOCUS  ') #opens gene bank file and splits by '//\n' to create list of each genes
+		genbank = open('C:\Users\mghol\Documents\Projects\NCBI-GenBank-file-parser\Mattirolomyces_terfezioides.gbk').read().split('LOCUS  ') #opens gene bank file and splits by '//\n' to create list of each genes
 	except:
 		print "File not found. Please make sure you have the right file and also include the file extension"
 
