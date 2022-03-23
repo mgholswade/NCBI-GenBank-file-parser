@@ -48,7 +48,7 @@ def gff3_retrieve():
 
     gff3_string = gff3_string.replace('\\',' ')
     gff3_string = gff3_string.replace('\t',' ')
-    gff3_stsring = gff3_string.replace(';',' ')
+    gff3_string = gff3_string.replace(';',' ')
     gff3_string = re.sub('ID=[\w\-\.]*;','',gff3_string)
     # 2/28 Commented out to try to fix final join
     gff3_string = re.sub(r'Parent=(MTE_[0-9]*)([\w\-\.]*);',r'\1 ',gff3_string)

@@ -19,7 +19,7 @@ from Bio import GenBank
 def readfile():
 	
 	try:
-		genbank = open('C:\Users\mghol\Documents\Projects\NCBI-GenBank-file-parser\Mattirolomyces_terfezioides.gbk').read().split('LOCUS  ') #opens gene bank file and splits by '//\n' to create list of each genes
+		genbank = open('C:/Users/mghol/Documents/Projects/NCBI-GenBank-file-parser/Mattirolomyces_terfezioides.gbk').read().split('LOCUS  ') #opens gene bank file and splits by '//\n' to create list of each genes
 	except:
 		print("File not found. Please make sure you have the right file and also include the file extension")
 
@@ -111,7 +111,7 @@ def ntgenbank():
 					"protein_id":'',"translation":'',"num_aa":'', "gene_synonym":''}
 
 			for n in range(0, len(cds.qualifiers)):		#going through all the elements in the cds
-				for key, value in cds_dict.iteritems():	#looping through the dictionary items to see if present in cds
+				for key, value in iter(cds_dict.items()):	#looping through the dictionary items to see if present in cds
 					if ((key in cds.qualifiers[n].key) or (key in cds.qualifiers[n].value)):
 						keys =str(key)					#storing dictionary key
 						cds_dict[keys] = str(cds.qualifiers[n].value) #updating dictionary key with values
