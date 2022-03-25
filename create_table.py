@@ -83,11 +83,11 @@ def gff3_retrieve():
 
     return df
 
-def main():
+def create_table():
     quantdf = quant_retrieve()
     gff3df = gff3_retrieve()
     gbkdf = gfp.ntgenbank()
 
     return 0
 
-main()
+create_table()
