@@ -128,7 +128,7 @@ def ntgenbank():
 			translation = cds_dict["translation"]
 			if translation != '': num_aa = len(translation)
 			if len(hgnc) !=0:
-				hgnc = '"'+hgnc.split(':')[2]
+				hgnc = ''
 			if len(mim) !=0:
 				mim = '"'+mim.split(':')[1]
 			if len(geneid) !=0:
