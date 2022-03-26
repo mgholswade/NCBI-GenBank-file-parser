@@ -30,10 +30,7 @@ def ntgenbank():
 	#retreiving all genebank files in a list calling another function
 	nuc_genbank = readfile()
 	#nuc_genbank = filter(None, nuc_genbank)
-	print(len(nuc_genbank))
-	print(nuc_genbank[0])
 	length = len(nuc_genbank)
-	print("\nParsing started")
 	output = open('result_ntgenbank.csv','w') # opening a file to write the ouput
 
 	#writing headings of the output file
@@ -43,7 +40,6 @@ def ntgenbank():
 	
 	# going through all the genes in the list
 	for n in range(1,length):	#0 index is empty
-		print(n)
 		test= 'LOCUS  ' + nuc_genbank[n].lstrip('\n')   #removing new line of from individual genebank files
 		query = open('genbank.txt','w')	#creating a genbank file to create query gene bank file
 		query.write(test)
@@ -142,7 +138,6 @@ def ntgenbank():
 			mim+','+cds_dict["EC_number"]+','+geneid+ ','+synonym+','+\
 			translation+','+str(num_aa) +','+str(chrm)+','+chrm_map+','+nt_seq+','+organism+'\n'
 			output.write(gvalue)
-	print("Parsing completed")
 	output.close()
 	
 ntgenbank()

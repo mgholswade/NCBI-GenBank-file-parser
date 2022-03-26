@@ -30,7 +30,6 @@ def quant_retrieve():
 
         quants_string = quants_string.replace('\\',',')
         quants_string = quants_string.replace('\t',',')
-        # 2/28 Commented out to try to fix final join
         quants_string = re.sub(r'(FUN_[0-9]*)([\w\-\.]*),',r'\1,',quants_string)
 
         quants = pd.read_csv(io.StringIO(quants_string))
@@ -79,7 +78,7 @@ def gff3_retrieve():
         masterList.append(newlist)
 
     df = pd.DataFrame.from_dict(masterList)
-    df.columns = ['Scaffold','Source','Type','Start','End','A','B','C','Name','Details']
+    df.columns = ['Scaffold','Source','Type','Start','End','A','B','C','Name','Details','ETC']
 
     return df
 
@@ -88,6 +87,9 @@ def create_table():
     gff3df = gff3_retrieve()
     gbkdf = gfp.ntgenbank()
 
-    return 0
+
+    tempdf = pd.merge(gff3df.loc[gff3df['Type'] == 'mRNA'],quantdf,on='Name',how='left')
+    finaldf = pd.merge(tempdf,gbkdf,on='Name',how='left')
+    return finaldf
 
 create_table()
