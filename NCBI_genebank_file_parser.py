@@ -139,5 +139,6 @@ def ntgenbank():
 			translation+','+str(num_aa) +','+str(chrm)+','+chrm_map+','+nt_seq+','+organism+'\n'
 			output.write(gvalue)
 	output.close()
+
 	
-ntgenbank()
+
