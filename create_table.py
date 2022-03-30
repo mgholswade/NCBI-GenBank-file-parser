@@ -14,7 +14,7 @@ def readfile():
 
 #function to parse the nucleotide reference sequence genebank file
 def ntgenbank():
-#retreiving all genebank files in a list calling another function
+#retreiving all genebank files in a list calling another function  
     nuc_genbank = readfile()
     #nuc_genbank = filter(None, nuc_genbank)
     length = len(nuc_genbank)
